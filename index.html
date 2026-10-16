@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr" class="is-loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les Infectés | Guide de terrain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@600;700&family=Arimo:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/decor.webp">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Filtres SVG : papier déchiré, pinceau sec, taches de peinture -->
+  <svg class="defs" aria-hidden="true">
+    <filter id="torn" x="-5%" y="-50%" width="110%" height="200%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="22"/>
+    </filter>
+    <filter id="brush" x="-5%" y="-40%" width="110%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.5" numOctaves="3" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="16"/>
+    </filter>
+  </svg>
+
+  <!-- Chargement -->
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader-inner">
+      <img class="loader-firefly" src="assets/firefly.webp" alt="">
+      <p class="loader-kicker">The Last of Us · Signature Series Guide</p>
+      <div class="loader-bar"><i id="loaderBar"></i></div>
+      <p class="loader-pct" id="loaderPct">0 %</p>
+    </div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <canvas id="spores" aria-hidden="true"></canvas>
+  <div class="listen-vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <span class="brand">The Last of Us <em>/ Signature Series Guide</em></span>
+  </header>
+
+  <nav class="rail" aria-label="Stades d'infection">
+    <div class="rail-line"><div class="rail-fill" id="railFill"></div></div>
+    <a href="#coureurs" data-target="coureurs"><i></i><span>Coureurs</span></a>
+    <a href="#rodeurs" data-target="rodeurs"><i></i><span>Rôdeurs</span></a>
+    <a href="#claqueurs" data-target="claqueurs"><i></i><span>Claqueurs</span></a>
+    <a href="#colosses" data-target="colosses"><i></i><span>Colosses</span></a>
+  </nav>
+
+  <main>
+    <!-- =================== HERO : le monde du jeu =================== -->
+    <section class="hero" id="hero">
+      <div class="layer layer-bg" data-depth="0.12" data-scroll="0.5"></div>
+      <div class="layer layer-light" data-depth="0.2" data-scroll="0.4"></div>
+      <div class="fog"></div>
+
+      <div class="layer hero-title" data-depth="0.35" data-scroll="0.25">
+        <p class="hero-kicker">Guide officiel · Signature Series</p>
+        <h1 class="title title-xl">Les infectés</h1>
+        <p class="banner banner-short">Venant de BradyGames, <em>Signature Series Guide</em> de Michael Owen et Kenny Sims</p>
+      </div>
+
+      <div class="layer horde" data-depth="0.8" data-scroll="-0.05" aria-hidden="true">
+        <img class="h-claqueur" src="assets/claqueur.webp" alt="">
+        <img class="h-colosse" src="assets/colosse.webp" alt="">
+      </div>
+
+      <div class="layer ferns-front" data-depth="1.2" data-scroll="0.12" aria-hidden="true">
+        <div class="ferns sway" data-count="6" data-size="1.25" data-tone="dark" style="left:-4%;bottom:-6vh;width:34vw;height:62vh"></div>
+        <div class="ferns sway" data-count="5" data-size="1.1" data-tone="dark" style="right:-5%;bottom:-8vh;width:30vw;height:56vh"></div>
+      </div>
+      <div class="torch" aria-hidden="true"></div>
+      <div class="hero-floor"></div>
+      <a class="scroll-cue" href="#guide">Ouvrir le guide <span>↓</span></a>
+    </section>
+
+    <!-- =================== LE GUIDE : la double page =================== -->
+    <div class="desk" id="guide">
+      <div class="desk-bg" aria-hidden="true"></div>
+<article class="sheet">
+        <div class="paper" aria-hidden="true"></div>
+        <div class="paper-edge paper-edge--l" aria-hidden="true"></div>
+        <div class="paper-edge paper-edge--r" aria-hidden="true"></div>
+        <div class="paper-edge paper-edge--t" aria-hidden="true"></div>
+        <div class="paper-edge paper-edge--b" aria-hidden="true"></div>
+
+        <!-- fougères qui sortent de sous le guide : la base est cachée derrière le papier -->
+        <div class="ferns edge edge--l sway" data-count="6" data-size=".95" style="top:3%"></div>
+        <div class="ferns edge edge--r sway" data-count="5" data-size=".85" style="top:17%"></div>
+        <div class="ferns edge edge--l sway" data-count="5" data-size=".8" style="top:36%"></div>
+        <div class="ferns edge edge--r sway" data-count="6" data-size=".95" style="top:52%"></div>
+        <div class="ferns edge edge--l sway" data-count="6" data-size="1" style="top:68%"></div>
+        <div class="ferns edge edge--r sway" data-count="5" data-size=".85" style="top:84%"></div>
+
+        <!-- ============ PAGE 40 ============ -->
+        <span class="folio-v"><b>Ennemis</b></span>
+
+        <section class="intro reveal">
+          <div>
+            <h2 class="title">Les infectés</h2>
+            <p>Les humains sont infectés par l'inhalation de spores de Cordyceps ou par contact direct avec les fluides d'un infecté, comme lors d'une morsure. Dans les deux jours suivant l'infection, le parasite attaque le cerveau de l'hôte et prend le contrôle de la victime. Celle-ci passe par quatre stades d'infection, devenant d'abord un coureur pour finir par atteindre la forme de colosse.</p>
+          </div>
+          <figure class="shot"><img src="assets/intro-1.webp?v=1" alt="Un claqueur, infecté par le Cordyceps"></figure>
+        </section>
+
+        <!-- COUREURS -->
+        <section class="enemy enemy--a" id="coureurs" data-sound="coureur">
+          <figure class="cut bust" data-speed="-0.06"><img src="assets/coureur.webp" alt="Coureur infecté"></figure>
+          <header class="enemy-head">
+            <h2 class="sub">Coureurs infectés</h2>
+            <p class="banner">Croisés aux chapitres : la zone de quarantaine, la périphérie, la ville de Bill, la banlieue, le parc d'autobus</p>
+          </header>
+          <div class="shots shots--row reveal">
+            <figure class="shot"><img src="assets/coureurs-1.webp" data-pos="30% 75%" data-zoom="2.2" alt="Capture : Joel et Ellie aux prises avec des coureurs"></figure>
+            <figure class="shot"><img src="assets/coureurs-2.webp" data-pos="18% 70%" data-zoom="2.6" alt="Capture : Joel repousse deux coureurs"></figure>
+          </div>
+          <div class="text reveal">
+            <p>Les coureurs en sont au premier stade d'infection. Leur vision est encore intacte et ils demeurent rapides et agiles. Vous les trouverez généralement en groupes. Une fois que l'un d'entre eux a repéré une cible, il fonce dans sa direction.</p>
+            <p>Les coureurs peuvent être éliminés furtivement, avec des attaques au corps à corps ou à l'arme à feu. Prenez garde à ne pas être débordé par plusieurs coureurs. Si cela se produit et que Joel bat en retraite, maintenez la touche L2 enfoncée et maintenez une direction pour vous échapper.</p>
+          </div>
+        </section>
+
+        <!-- RÔDEURS -->
+        <section class="enemy enemy--b" id="rodeurs" data-sound="rodeur">
+          <figure class="cut bust" data-speed="-0.08"><img src="assets/rodeur.webp" alt="Rôdeur infecté"></figure>
+          <header class="enemy-head">
+            <h2 class="sub">Rôdeurs infectés</h2>
+            <p class="banner">Croisés aux chapitres : Pittsburgh, la banlieue</p>
+          </header>
+          <div class="shots shots--stack reveal">
+            <figure class="shot"><img src="assets/rodeurs-1.webp" data-pos="86% 38%" data-zoom="2.4" alt="Modélisation 3D d'un rôdeur"></figure>
+            <figure class="shot"><img src="assets/rodeurs-2.webp" data-pos="96% 30%" data-zoom="2.8" alt="Capture : un rôdeur attaque Joel"></figure>
+          </div>
+          <div class="text text--big reveal">
+            <p>Les rôdeurs représentent la deuxième phase du développement de l'infection. Ils sont rapides, agiles et se cachent en attendant que leur victime s'approche suffisamment près pour la piéger. Ayez un œil partout lorsque ces ennemis sont dans les environs.</p>
+            <p>Les rôdeurs sont vraiment prompts à sauter sur leur cible. S'ils vous attrapent, appuyez rapidement sur la touche carré pour vous dégager. En raison de leur rapidité, soyez toujours prêt à contrer une attaque. Vous n'aurez pas beaucoup de temps pour réagir s'ils attaquent. Il est possible de les surprendre et de les affaiblir alors qu'ils sont encore à couvert si vous placez des mines près de l'endroit où ils se cachent.</p>
+          </div>
+        </section>
+
+        <!-- ============ PAGE 41 ============ -->
+        <div class="page-break" aria-hidden="true"></div>
+
+        <!-- CLAQUEURS -->
+        <section class="enemy enemy--c" id="claqueurs" data-sound="claqueur">
+          <figure class="cut full twitch" data-speed="-0.1"><img src="assets/claqueur.webp" alt="Claqueur infecté"></figure>
+          <header class="enemy-head">
+            <h2 class="sub">Claqueurs infectés</h2>
+            <p class="banner">Croisés aux chapitres : la périphérie, la ville de Bill, la banlieue, l'université, le parc d'autobus</p>
+          </header>
+          <div class="shots shots--stack reveal">
+            <figure class="shot"><img src="assets/claqueurs-1.webp" data-pos="55% 40%" data-zoom="2.2" alt="Un claqueur à l'affût"></figure>
+            <figure class="shot"><img src="assets/claqueurs-2.webp" data-pos="45% 85%" data-zoom="2.5" alt="Capture : Joel tire sur un claqueur"></figure>
+          </div>
+          <div class="text reveal">
+            <p>Au troisième stade de l'infection, les claqueurs perdent la vue en raison du champignon qui s'est développé sur leur visage. Leur ouïe est en revanche d'une efficacité redoutable. Les claqueurs utilisent un cliquetis et l'écholocalisation pour trouver leurs cibles. Pour cette raison, vous devez redoubler de discrétion en leur présence. Appuyez légèrement sur le joystick gauche lorsque vous êtes accroupi pour faire moins de bruit. Ne les laissez pas s'approcher trop près, ils vous tueraient facilement.</p>
+            <p>Vous pouvez facilement distraire les claqueurs à l'aide de briques ou de bouteilles que vous jetez pour éloigner les ennemis. Une bouteille ou une brique est également très utile contre un claqueur isolé. Frappez-le avec ces armes de fortune pour l'étourdir, ce qui vous permet de foncer sur lui pour l'attaquer avec une arme de corps à corps. Vous pouvez aussi les éliminer furtivement ou avec des armes à feu. Notez cependant qu'un surin est nécessaire dans le premier cas.</p>
+          </div>
+          <div class="text text--wide reveal">
+            <p>En achetant l'amélioration Maître du surin pour Joel, vous obtiendrez la capacité d'utiliser un surin pour attaquer un claqueur. Appuyez rapidement sur la touche triangle lorsqu'indiqué pour planter le surin dans le claqueur.</p>
+          </div>
+        </section>
+
+        <!-- COLOSSES -->
+        <section class="enemy enemy--d" id="colosses" data-sound="colosse">
+          <figure class="cut full heavy" data-speed="-0.1"><img src="assets/colosse.webp" alt="Colosse infecté"></figure>
+          <header class="enemy-head">
+            <h2 class="sub">Colosses infectés</h2>
+            <p class="banner">Croisés aux chapitres : la ville de Bill, Pittsburgh, l'université, le parc d'autobus</p>
+          </header>
+          <div class="shots shots--row reveal">
+            <figure class="shot"><img src="assets/colosses-1.webp" data-pos="10% 40%" data-zoom="2.2" alt="Capture : un colosse dans un couloir"></figure>
+            <figure class="shot"><img src="assets/colosses-2.webp" data-pos="70% 20%" data-zoom="2.4" alt="Capture : un colosse dans le gymnase"></figure>
+          </div>
+          <div class="text text--cols reveal">
+            <p>Les colosses ont atteint le dernier stade de l'infection, faisant d'eux les ennemis infectés les plus coriaces que vous rencontrerez. Le champignon recouvre tout leur corps, et ils s'en servent pour lancer des bombes de spores à distance sur leur cible. Ils sont néanmoins gros et lents, ce qui en fait des ennemis faciles à éviter. Vous devez disposer d'une puissance de feu conséquente pour les éliminer et leur résistance au corps à corps est impressionnante.</p>
+            <p>Jetez-leur un cocktail Molotov puis criblez-les de plomb avec votre fusil à pompe. Gardez cependant une certaine distance, les colosses peuvent rapidement vous mettre en pièces s'ils sont près de vous.</p>
+            <p>S'approcher est donc généralement une mauvaise idée, mais vous pouvez obtenir un Trophée si vous éliminez un colosse à courte portée. Réduisez sa santé au lance-flammes ou à l'aide d'un cocktail Molotov, puis approchez-vous pour l'achever rapidement avec un ou deux coups de fusil à pompe.</p>
+          </div>
+        </section>
+      </article>
+    </div>
+
+    <!-- =================== FIN =================== -->
+    <section class="outro">
+      <div class="layer-bg outro-bg"></div>
+      <div class="ferns sway" data-count="6" data-size="1.1" data-tone="dark" style="left:-3%;bottom:-4vh;width:40vw;height:60vh"></div>
+      <div class="ferns sway" data-count="5" data-size="1" data-tone="dark" style="right:-3%;bottom:-4vh;width:36vw;height:55vh"></div>
+      <div class="outro-inner reveal">
+        <figure class="outro-cover" data-speed="-0.06">
+          <img src="assets/guide-cover.webp" alt="Couverture du guide officiel The Last of Us, BradyGames Signature Series Guide" loading="lazy">
+        </figure>
+        <div class="outro-text">
+          <img class="outro-firefly" src="assets/firefly.webp" alt="" loading="lazy">
+          <p class="hero-kicker">D'où vient cette page</p>
+          <h2 class="title title-lg">Le guide officiel</h2>
+          <p class="outro-lead">Tout ce que vous venez de parcourir vient de la double page « Les Infectés » du guide officiel <em>The Last of Us</em>, publié par BradyGames dans sa collection <em>Signature Series</em> et écrit par Michael Owen et Kenny Sims.</p>
+          <p class="outro-lead">Les textes, la typographie, les bandeaux au pinceau, le papier taché et la mise en page sont repris du livre. Ce site en est la transposition numérique : le guide posé dans le monde du jeu.</p>
+          <p class="banner banner-short">Venant de BradyGames, <em>Signature Series Guide</em> de Michael Owen et Kenny Sims</p>
+          <p class="credits">Projet étudiant de direction artistique.<br>The Last of Us © Sony Interactive Entertainment / Naughty Dog. Musique : Gustavo Santaolalla.</p>
+          <a class="btn-brush" href="#hero" id="toTop"><span>Retour au début</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="controls">
+    <button class="ctl" id="listenBtn" aria-label="Mode écoute (maintenir)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a2.5 2.5 0 0 1-5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 10a2 2 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Maintenir <kbd>Espace</kbd> : mode écoute</span>
+    </button>
+    <button class="ctl" id="soundBtn" aria-label="Couper le son">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <audio id="music" src="assets/musique.mp3?v=1" loop preload="auto"></audio>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
